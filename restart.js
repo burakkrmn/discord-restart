@@ -9,7 +9,7 @@ exports.run = async (client, message, args) => {
   .setTimestamp()
   .setAuthor("Restart Komutu")
   .setFooter("Onaylamak için ✅ emojisine, Red etmek içinse ❌ emojisine tıklayabilirsiniz")
-  .setDescription("**UYARI!** \n\nEğer Reboot işlemini onaylarsanız **bot yeniden başlatılacak**")
+  .setDescription("**UYARI!** \n\nEğer Reboot işlemini onaylarsanız **bot yeniden baslayacak**")
   message.channel.send(onayembed).then(msg => {
 msg.react('✅').then(() => msg.react('❌'));
 
@@ -24,7 +24,9 @@ msg.awaitReactions(filter, { max: 1, time: 60000, errors: ['time'] })
 		if (reaction.emoji.name === '✅') {
      message.channel.send(`**Bot yeniden başlatılıyor...**`)
      console.log(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] Bot yeniden başlatılıyor...`)
-     process.exit(1);
+	setTimeout((function() {
+    	return process.exit(1);
+	}), 5000);
 		} else {
 			message.reply('reboot işlemi iptal edildi!');
       msg.delete({timeout:3000})
@@ -43,7 +45,7 @@ exports.conf = {
   guildOnly: true,
   aliases: [],
   permLevel: 3,
-  kategori: "yönetim"
+  kategori: "sunucu"
 };
 
 exports.help = { 
